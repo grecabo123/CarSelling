@@ -23,21 +23,26 @@ class AuthController extends Controller
             ]);
         }
         else{
-            $user = User::where('email',$request->username)->first();
+            $user = User::where('email',$request->email)->first();
             if($user || Hash::check($request->password, $user->password)){   
                 if($user->status == 1){
-                    // Admin
                     if($user->role == 1){
                         $token = $user->createToken($user->email.'_Admin',['server:admin'])->plainTextToken;
                     }
+                    // Dealer
+                    else if($user->role == 2) {
+                        $token = $user->createToken($user->email.'_Dealer',['server:dealer'])->plainTextToken;
+
+                    }
                     else{
-                        // user
-                        $token = $user->createToken($user->email.'_User',['server:user'])->plainTextToken;
+                        // user as a customer
+                        $token = $user->createToken($user->email.'_customer',['server:customer'])->plainTextToken;
                     }
                     return response()->json([
                         "status"            =>      200,
                         "role"              =>      $user->role,
                         "id"                =>      $user->id,
+                        "name"              =>      $user->name,
                         "token"             =>      $token,
                         "message"           =>      "Logged In Successfuly",
                     ]);
@@ -79,8 +84,8 @@ class AuthController extends Controller
 
             $user->name = $request->fname." ".$request->lname;
             $user->email = $request->email;
-            $user->role = 2;
-            $user->status = 0;
+            $user->role = 3;
+            $user->status = 1;
             $user->secret = $request->password;
             $user->password = Hash::make($request->password);
             $user->save();

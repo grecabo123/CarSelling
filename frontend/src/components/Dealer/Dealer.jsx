@@ -1,5 +1,4 @@
 import React, { useRef } from 'react'
-import AdminRoutes from '../../routes/AdminRoutes'
 import { Link, Redirect, Route, Switch, useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 import { Avatar } from 'primereact/avatar';
 import { Menu } from 'primereact/menu';
@@ -9,20 +8,21 @@ import { HiOutlineX } from "react-icons/hi";
 import { BiLogOut } from 'react-icons/bi'
 import axios from 'axios';
 import swal from 'sweetalert';
+import DealerRoutes from '../../routes/DealerRoutes';
 
 
-function Admin() {
 
+function Dealer() {
 
     const history = useHistory();
     const menu = useRef(null);
     
-
     const Logout = () => {
         axios.post(`/api/logout`).then(res => {
             if (res.data.status === 200) {
                 localStorage.removeItem('auth_token');
                 localStorage.removeItem('auth_id');
+                localStorage.removeItem('auth_name');
                 swal('Success', res.data.message, 'success');
                 history.push('/login');
             }
@@ -40,42 +40,39 @@ function Admin() {
         <>
              <div class="sidebar sidebar-dark sidebar-fixed" id="sidebar">
                 <div class="sidebar-brand d-none d-md-flex">
-                    <h4>Manufacture</h4>
+                    <h6>Dealer - {localStorage.getItem('auth_name')}</h6>
                 </div>
                 <ul class="sidebar-nav" data-coreui="navigation" data-simplebar="">
                     <li class="nav-item"><br /></li>
 
                     <li class="nav-title">Pages</li>
-                    <li class="nav-item"><a class="nav-link" href="/admin">
+                    <li class="nav-item"><a class="nav-link" href="/dealer">
                         <FcHome className='nav-icon' /> Dashboard</a></li>
 
                     <li class="nav-group"><a class="nav-link nav-group-toggle" data-bs-toggle="collapse" data-bs-target="#collapseOne">
-                        <FcManager className='nav-icon' />Accounts</a>
+                        <FcManager className='nav-icon' />List</a>
                     </li>
                     <div class="collapse" id='collapseOne'>
-                        <li class="nav-item"><Link class="nav-link" to="/admin/dealer"><FcCheckmark className='nav-icon' />Dealer Name</Link></li>
+                        <li class="nav-item"><Link class="nav-link" to="/dealer/dealer"><FcCheckmark className='nav-icon' />Manufacture Name</Link></li>
                     </div>
 
-                    <li class="nav-item"><Link class="nav-link" to="/admin/sell">
+                    <li class="nav-item"><Link class="nav-link" to="/dealer/sell">
                         <FcFolder className='nav-icon' /> View Sells</Link></li>
-
-                    <li class="nav-title">Manage</li>
-                    <li class="nav-group"><a class="nav-link nav-group-toggle" data-bs-toggle="collapse" data-bs-target="#price">
-                        <FaBox className='nav-icon' />Product</a>
-                    </li>
+                        <li class="nav-item"><Link class="nav-link" to="/dealer/sell">
+                        <FcFolder className='nav-icon' /> Reserve List</Link></li>
                     <div class="collapse" id='price'>
-                        <li class="nav-item"><Link class="nav-link" to="/admin/AddProduct"> <span className='nav-icon'></span>Add Product</Link></li>
+                        <li class="nav-item"><Link class="nav-link" to="/dealer/AddProduct"> <span className='nav-icon'></span>Add Product</Link></li>
                     </div>
 
 
                     <li class="nav-title">Payment</li>
-                    <li class="nav-item"><Link class="nav-link" to="/admin/transaction">
+                    <li class="nav-item"><Link class="nav-link" to="/dealer/transaction">
                         <FaDollarSign className='nav-icon' /> Transaction History</Link></li>
 
 
                     {/* History */}
                     <li class="nav-title">History</li>
-                    <li class="nav-item"><Link class="nav-link" to="/admin/logs">
+                    <li class="nav-item"><Link class="nav-link" to="/dealer/logs">
                         <FcSurvey className='nav-icon' /> Activity Logs</Link></li>
 
                   
@@ -103,7 +100,7 @@ function Admin() {
                 <Switch>
                     {
                         
-                        AdminRoutes.map((route, idx) => {
+                        DealerRoutes.map((route, idx) => {
                             return (
                                 route.component && (
                                     <Route
@@ -117,11 +114,11 @@ function Admin() {
                             )
                         })
                     }
-                    <Redirect from='/admin' to='/admin/dashboard' />
+                    <Redirect from='/dealer' to='/dealer/dashboard' />
                 </Switch>
             </div>
         </>
     )
 }
 
-export default Admin
+export default Dealer

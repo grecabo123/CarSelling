@@ -3,3 +3,7 @@
     display: flex;
     align-items: center;
 }
+
+body{
+    background-color: #20262E !important;
+}

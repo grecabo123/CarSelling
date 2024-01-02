@@ -2,9 +2,9 @@ import React from 'react'
 import axios from 'axios';
 import Login from './components/Login';
 import PrimeReact from 'primereact/api';
-
-
-
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom/cjs/react-router-dom.min';
+import PrivateAdminRoutes from './private/PrivateAdminRoutes';
+import PrivateDealerRoutes from './private/PrivateDealerRoutes';
 
 axios.defaults.baseURL = "http://127.0.0.1:8000/";
 axios.defaults.headers.post['Content-Type'] = "application/json";
@@ -24,9 +24,18 @@ function App() {
     PrimeReact.ripple = true;
     
     return (
-        <>
-            <Login />
-        </>
+        <div>
+            <Router>
+                <Switch>
+                    <Route path="/" exact={true} component={Login} />
+
+
+                    
+                    <PrivateAdminRoutes path="/admin" name="admin" />
+                    <PrivateDealerRoutes path="/dealer" name="dealer" />
+                </Switch>
+            </Router>
+        </div>
     )
 }
 
