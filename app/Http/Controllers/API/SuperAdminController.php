@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Models\Logs;
 use App\Models\User;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
@@ -57,6 +58,12 @@ class SuperAdminController extends Controller
             $suppler->supplier_name = $request->name;
             $suppler->user_fk = $user->id;
             $suppler->save();
+
+            $logs = new Logs;
+
+            $logs->description = "Created Manufacture"." ".$request->name;
+            $logs->user_fk = $request->user_fk;
+            $logs->save();
 
             return response()->json([
                 "status"            =>          200,

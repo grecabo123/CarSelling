@@ -90,6 +90,7 @@ function Dashboard() {
             email: CreateData.email,
             contact: CreateData.contact,
             brgy: PickBrgy,
+            user_fk: localStorage.getItem('auth_id'),
         };
 
         axios.post(`/api/CreateAccount`,data).then(res => {

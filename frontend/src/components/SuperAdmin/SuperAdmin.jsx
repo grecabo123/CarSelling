@@ -43,12 +43,12 @@ function SuperAdmin() {
                     <li class="nav-item"><br /></li>
 
                     <li class="nav-title">Pages</li>
-                    <li class="nav-item"><a class="nav-link" href="/admin">
+                    <li class="nav-item"><a class="nav-link" href="/cars">
                         <FcHome className='nav-icon' /> Dashboard</a></li>   
 
                     {/* History */}
                     <li class="nav-title">History</li>
-                    <li class="nav-item"><Link class="nav-link" to="/admin/logs">
+                    <li class="nav-item"><Link class="nav-link" to="/cars/logs">
                         <FcSurvey className='nav-icon' /> Activity Logs</Link></li>
 
                   
