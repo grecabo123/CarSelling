@@ -34,6 +34,10 @@ class AuthController extends Controller
                         $token = $user->createToken($user->email.'_Dealer',['server:dealer'])->plainTextToken;
 
                     }
+                    else if($user->role == 4) {
+                        $token = $user->createToken($user->email.'_SuperAdmin',['server:super'])->plainTextToken;
+
+                    }
                     else{
                         // user as a customer
                         $token = $user->createToken($user->email.'_customer',['server:customer'])->plainTextToken;
@@ -96,5 +100,14 @@ class AuthController extends Controller
             ]);
 
         }
-    }   
+    }
+    
+    public function Logout(){
+        auth()->user()->tokens()->delete();
+
+        return response()->json([
+            "status"        =>      200,
+            'message'       =>      "Logout Successfully",
+        ]);
+    }
 }

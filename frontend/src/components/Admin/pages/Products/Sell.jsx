@@ -78,6 +78,11 @@ function Sell() {
         )
     }
 
+
+    const GetDetails = () => {
+
+    }
+
  
 
     const AddProduct = (e) => {

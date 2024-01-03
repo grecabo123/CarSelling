@@ -2,17 +2,16 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Redirect, Route, useHistory } from 'react-router-dom'
 import swal from 'sweetalert';
-import Dashboard from '../components/Customer/pages/Dashboard';
-import Customer from '../components/Customer/Customer';
+import SuperAdmin from '../components/SuperAdmin/SuperAdmin';
 
 
-function PrivateCustomerRoutes({...rest}) {
+function PrivateSuperAdminRoutes({...rest}) {
     const [Authenticated, setAuthenticated] = useState(false);
     const [loading, setloading] = useState(true);
     const history = useHistory();
     useEffect(() => {
-        axios.get(`/api/customer`).then(res => {
-            if (res.data.status === 200 && res.data.role === 3) {
+        axios.get(`/api/superadmin`).then(res => {
+            if (res.data.status === 200 && res.data.role === 4) {
                 setAuthenticated(true)
             }
             setloading(false);
@@ -53,6 +52,10 @@ function PrivateCustomerRoutes({...rest}) {
                 swal("Warning", error.response.data.message, "warning");
                 history.push('/admin')
             }
+            else if(error.response.data.token === 3) {
+                swal("Warning", error.response.data.message, "warning");
+                history.push('/customer')
+            }
         }
         // Page Not Found
         else if (error.response.status === 404) {
@@ -72,7 +75,7 @@ function PrivateCustomerRoutes({...rest}) {
         <Route {...rest}
             render={({ props, location }) =>
                 Authenticated ?
-                    (<Customer {...rest} />) :
+                    (<SuperAdmin {...rest} />) :
                     (<Redirect to={{ pathname: '/', state: { from: location } }} />)
             }
 
@@ -80,4 +83,4 @@ function PrivateCustomerRoutes({...rest}) {
     )
 }
 
-export default PrivateCustomerRoutes
+export default PrivateSuperAdminRoutes

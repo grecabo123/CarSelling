@@ -5,6 +5,8 @@ import PrimeReact from 'primereact/api';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom/cjs/react-router-dom.min';
 import PrivateAdminRoutes from './private/PrivateAdminRoutes';
 import PrivateDealerRoutes from './private/PrivateDealerRoutes';
+import PrivateCustomerRoutes from './private/PrivateCustomerRoutes';
+import PrivateSuperAdminRoutes from './private/PrivateSuperAdminRoutes';
 
 axios.defaults.baseURL = "http://127.0.0.1:8000/";
 axios.defaults.headers.post['Content-Type'] = "application/json";
@@ -33,6 +35,8 @@ function App() {
                     
                     <PrivateAdminRoutes path="/admin" name="admin" />
                     <PrivateDealerRoutes path="/dealer" name="dealer" />
+                    <PrivateCustomerRoutes path="/customer" name="customer" />
+                    <PrivateSuperAdminRoutes path="/cars" name="cars" />
                 </Switch>
             </Router>
         </div>

@@ -18,6 +18,7 @@ class Products extends Model
         "bodytype",
         "color",
         "price",
+        "dealer_price",
         "image",
         "brand",
         "model",
@@ -26,5 +27,6 @@ class Products extends Model
         "model_year",
         "unique_key",
         "user_fk",
+        "supplier_fk",
     ];
 }

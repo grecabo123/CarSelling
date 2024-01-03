@@ -46,7 +46,7 @@ function DetailsProduct(props) {
     }
 
     const Amount = (e) => {
-        if(e.target.value > Details.price) {
+        if(e.target.value > Details.dealer_price) {
             setbtn(false)
             // setbuy({
             //     money: e.target.value
@@ -120,7 +120,7 @@ function DetailsProduct(props) {
                                 </li>
                                 <li className="list-group-item bg-transparent border-0 d-flex justify-content-between align-items-center">
                                     <span className='text-light'>Price</span>
-                                    <span className='text-light'>₱{Details.price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+                                    <span className='text-light'>₱{Details.dealer_price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
                                 </li>
                                 <li className="list-group-item bg-transparent border-0 d-flex justify-content-between align-items-center">
                                     <span className='text-light'>Image</span>
@@ -143,7 +143,7 @@ function DetailsProduct(props) {
                                             <label htmlFor="" className="form-label">
                                                Current Price
                                             </label>
-                                            <InputText readOnly value={Details.price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} keyfilter={'money'} name='money' className='w-100' />
+                                            <InputText readOnly value={Details.dealer_price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} keyfilter={'money'} name='money' className='w-100' />
                                         </div>
                                         <div className="col-lg-12 mb-2">
                                             <label htmlFor="" className="form-label">

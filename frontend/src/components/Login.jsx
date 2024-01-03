@@ -47,6 +47,12 @@ function Login() {
                         swal("Success",res.data.message, 'success');
                         history.push(`/dealer`);
                     }
+                    else if(res.data.role === 4){
+                        localStorage.setItem('auth_id',res.data.id)
+                        localStorage.setItem('auth_token',res.data.token)
+                        swal("Success",res.data.message, 'success');
+                        history.push(`/cars`);
+                    }
                     else{
                         localStorage.setItem('auth_id',res.data.id)
                         localStorage.setItem('auth_token',res.data.token)

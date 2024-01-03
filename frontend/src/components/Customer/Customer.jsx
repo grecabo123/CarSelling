@@ -8,11 +8,11 @@ import { HiOutlineX } from "react-icons/hi";
 import { BiLogOut } from 'react-icons/bi'
 import axios from 'axios';
 import swal from 'sweetalert';
-import DealerRoutes from '../../routes/DealerRoutes';
+import CustomerRoutes from '../../routes/CustomerRoutes';
 
 
 
-function Dealer() {
+function Customer() {
 
     const history = useHistory();
     const menu = useRef(null);
@@ -24,7 +24,7 @@ function Dealer() {
                 localStorage.removeItem('auth_id');
                 localStorage.removeItem('auth_name');
                 swal('Success', res.data.message, 'success');
-                history.push('/login');
+                history.push('/');
             }
         });
     }
@@ -40,39 +40,37 @@ function Dealer() {
         <>
              <div class="sidebar sidebar-dark sidebar-fixed" id="sidebar">
                 <div class="sidebar-brand d-none d-md-flex">
-                    <h6>Dealer - {localStorage.getItem('auth_name')}</h6>
+                    <h4>Customer</h4>
                 </div>
                 <ul class="sidebar-nav" data-coreui="navigation" data-simplebar="">
                     <li class="nav-item"><br /></li>
 
                     <li class="nav-title">Pages</li>
-                    {/* <li class="nav-item"><a class="nav-link" href="/dealer">
-                        <FcHome className='nav-icon' /> Dashboard</a></li> */}
-
+    
                     <li class="nav-group"><a class="nav-link nav-group-toggle" data-bs-toggle="collapse" data-bs-target="#collapseOne">
                         <FcManager className='nav-icon' />List</a>
                     </li>
                     <div class="collapse" id='collapseOne'>
-                        <li class="nav-item"><Link class="nav-link" to="/dealer/dealer"><FcCheckmark className='nav-icon' />Manufacture Name</Link></li>
+                        <li class="nav-item"><Link class="nav-link" to="/customer/dealer"><FcCheckmark className='nav-icon' />Manufacture Name</Link></li>
                     </div>
 
-                    <li class="nav-item"><Link class="nav-link" to="/dealer/sell">
+                    <li class="nav-item"><Link class="nav-link" to="/customer/sell">
                         <FcFolder className='nav-icon' /> View Sells</Link></li>
-                        <li class="nav-item"><Link class="nav-link" to="/dealer/sell">
-                        <FcFolder className='nav-icon' /> Reserve List</Link></li>
+                        <li class="nav-item"><Link class="nav-link" to="/customer/sell">
+                        <FcOpenedFolder className='nav-icon' /> Reserve Form</Link></li>
                     <div class="collapse" id='price'>
-                        <li class="nav-item"><Link class="nav-link" to="/dealer/AddProduct"> <span className='nav-icon'></span>Add Product</Link></li>
+                        <li class="nav-item"><Link class="nav-link" to="/customer/AddProduct"> <span className='nav-icon'></span>Add Product</Link></li>
                     </div>
 
 
                     <li class="nav-title">Payment</li>
-                    <li class="nav-item"><Link class="nav-link" to="/dealer/transaction">
+                    <li class="nav-item"><Link class="nav-link" to="/customer/transaction">
                         <FaDollarSign className='nav-icon' /> Transaction History</Link></li>
 
 
                     {/* History */}
                     <li class="nav-title">History</li>
-                    <li class="nav-item"><Link class="nav-link" to="/dealer/logs">
+                    <li class="nav-item"><Link class="nav-link" to="/customer/logs">
                         <FcSurvey className='nav-icon' /> Activity Logs</Link></li>
 
                   
@@ -100,7 +98,7 @@ function Dealer() {
                 <Switch>
                     {
                         
-                        DealerRoutes.map((route, idx) => {
+                        CustomerRoutes.map((route, idx) => {
                             return (
                                 route.component && (
                                     <Route
@@ -114,11 +112,11 @@ function Dealer() {
                             )
                         })
                     }
-                    <Redirect from='/dealer' to='/dealer/dashboard' />
+                    <Redirect from='/customer' to='/customer/dashboard' />
                 </Switch>
             </div>
         </>
     )
 }
 
-export default Dealer
+export default Customer

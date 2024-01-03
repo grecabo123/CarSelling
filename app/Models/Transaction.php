@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Dealers extends Model
+class Transaction extends Model
 {
     use HasFactory;
 
-    protected $table = "tbl_dealers_product";
-
-
+    protected $table = "tbl_transaction";
     protected $fillable = [
-        "user_fk",
+        "seller_fk",
+        "buyer_fk",
         "products_fk",
-        "price_sold",
+        "current_price",
+        "sold_price",
     ];
 }
