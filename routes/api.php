@@ -31,6 +31,7 @@ Route::get('DealerData', [DealerController::class, 'DealerData']);
 
 // Transaction
 Route::get('Transaction/{id}',[TransactionController::class, 'TransactionData']);
+Route::get('TransactionSeller/{id}',[TransactionController::class, 'TransactionDataSeller']);
 
 // Dealer
 Route::middleware(['auth:sanctum', 'isDealer'])->group(function () {
