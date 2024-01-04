@@ -157,17 +157,25 @@ class AdminController extends Controller
 
         if($product){
             $product->VID = $request->vid;
-            $product->bodytype = $request->bodytype;
+            $product->bodytype = $request->body;
             $product->color = $request->color;
             $product->price = $request->price;
             $product->brand = $request->brand;
             $product->model = $request->model;
             $product->transmission = $request->transmission;
             $product->engine = $request->engine;
-            $product->model_year = $request->model_year;
+            $product->model_year = $request->year;
 
+            
+            if($request->hasFile('files')){
+                $file = $request->file('files');
+                $extension = $file->getClientOriginalExtension();
+                $filename = md5(time()).".".$extension;
+                $file->move('Uploads/Files/',$filename);
+                $product->image =  "Uploads/Files/".$filename;                
+            }
             $product->update();
-
+            
             return response()->json([
                 "status"                =>          200,
             ]);

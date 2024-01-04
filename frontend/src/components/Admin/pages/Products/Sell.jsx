@@ -34,6 +34,7 @@ function Sell() {
         error: [],
     });
     const [FileData, setFile] = useState([]);
+    const [NewFile, setNewfile] = useState([]);
     const [DetailsProduct , setDetails] = useState({
         id: "",
         uniq: "",
@@ -56,6 +57,11 @@ function Sell() {
     const fileHandler = (e) => {
         e.persist();
         setFile({ file: e.target.files[0] });
+    }
+
+    const handleinputFile = (e) => {
+        e.persist();
+        setNewfile({ file: e.target.files[0] });
     }
 
     const ProductData = () => {
@@ -171,9 +177,27 @@ function Sell() {
     const UpdateProduct = (e) => {
         e.preventDefault();
 
-        const data = DetailsProduct;
+        // const data = DetailsProduct;
 
-        axios.put(`/api/UpdateProduct`,data).then(res => {
+        const data = new FormData;
+        
+        data.append('files', NewFile.file);
+        data.append('vid', DetailsProduct.vid);
+        data.append('body', DetailsProduct.bodytype);
+        data.append('color', DetailsProduct.color);
+        data.append('price', DetailsProduct.price);
+        data.append('brand', DetailsProduct.brand);
+        data.append('model', DetailsProduct.model);
+        data.append('transmission', DetailsProduct.transmission);
+        data.append('engine', DetailsProduct.engine);
+        data.append('year', DetailsProduct.model_year);
+        data.append('uniq', DetailsProduct.uniq);
+
+        // console.log(data);
+
+        
+
+        axios.post(`/api/UpdateProduct`,data).then(res => {
             if(res.data.status === 200) {
                 toast.current.show({severity: "success", summary: "Data Has Been Updated", detail: "Successfully"});
                 setVisibleDetails(false);
@@ -341,6 +365,13 @@ function Sell() {
                                     <InputText keyfilter={'money'} name='price' onChange={handleUpdate} value={DetailsProduct.price} />
                                     {/* <InputNumber value={DetailsProduct.price} mode='decimal' className='w-100' name='price' onValueChange={(e) => setNewPrice(e.value)} /> */}
                                 </div>
+                                
+                            </div>
+                            <div className="col-lg-12 mb-2">
+                                <label htmlFor="" className="form-label">
+                                    Image
+                                </label>
+                                <InputText type='file' className='w-100' name='file' onChange={handleinputFile} />
                             </div>
                            
                             <div className="mt-3 d-flex justify-content-end">

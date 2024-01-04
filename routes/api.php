@@ -12,7 +12,7 @@ use App\Http\Controllers\API\BarangayController;
 use App\Http\Controllers\API\TransactionController;
 
 Route::post('Login',[AuthController::class, 'Login']);
-Route::post('CreateAccount',[AuthController::class, 'CreateAccount']);
+Route::post('RegisterAccount',[AuthController::class, 'CreateAccount']);
 
 
 // Barangay
@@ -82,7 +82,7 @@ Route::middleware(['auth:sanctum', 'isAdmin'])->group(function () {
         ],200);
     });
 
-    Route::put('UpdateProduct',[AdminController::class, 'UpdateProduct']);
+    Route::post('UpdateProduct',[AdminController::class, 'UpdateProduct']);
     Route::get('DealerAccount',[AdminController::class, 'DealerAccount']);
     Route::post('AddDealer',[AdminController::class, 'AddDealer']);
     Route::delete('RemoveDealer/{id}',[AdminController::class, 'RemoveDealer']);

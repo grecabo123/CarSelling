@@ -32,7 +32,7 @@ function Register() {
             password: CreateAccount.password,
         };
 
-        axios.post(`/api/CreateAccount`,data).then(res => {
+        axios.post(`/api/RegisterAccount`,data).then(res => {
             if(res.data.status === 200) {
                 toast.current.show({severity: "success", summary: "Account Created", detail: "Successfully"});
                 document.getElementById('reset_form').reset();
