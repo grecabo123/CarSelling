@@ -82,6 +82,7 @@ Route::middleware(['auth:sanctum', 'isAdmin'])->group(function () {
         ],200);
     });
 
+    Route::put('UpdateProduct',[AdminController::class, 'UpdateProduct']);
     Route::get('DealerAccount',[AdminController::class, 'DealerAccount']);
     Route::post('AddDealer',[AdminController::class, 'AddDealer']);
     Route::delete('RemoveDealer/{id}',[AdminController::class, 'RemoveDealer']);

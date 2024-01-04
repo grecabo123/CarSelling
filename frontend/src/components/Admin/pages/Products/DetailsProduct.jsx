@@ -9,7 +9,6 @@ import swal from 'sweetalert';
 
 function DetailsProduct(props) {
 
-    // console.log(props.data.status == 1 ? 1 : 2);
 
     const [Details, setDetails] = useState([]);
     const [loading, setloading] = useState(true);

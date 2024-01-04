@@ -150,4 +150,27 @@ class AdminController extends Controller
 
         }
     }
+
+    public function UpdateProduct(Request $request){
+
+        $product = Products::where('unique_key',$request->uniq)->first();
+
+        if($product){
+            $product->VID = $request->vid;
+            $product->bodytype = $request->bodytype;
+            $product->color = $request->color;
+            $product->price = $request->price;
+            $product->brand = $request->brand;
+            $product->model = $request->model;
+            $product->transmission = $request->transmission;
+            $product->engine = $request->engine;
+            $product->model_year = $request->model_year;
+
+            $product->update();
+
+            return response()->json([
+                "status"                =>          200,
+            ]);
+        }
+    }
 }
