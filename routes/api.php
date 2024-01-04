@@ -42,8 +42,8 @@ Route::middleware(['auth:sanctum', 'isDealer'])->group(function () {
         ],200);
     });
     
+    Route::get('ProductDetailsDealer/{id}',[DealerController::class,'ProductDetails']);
     Route::put('BuyProduct',[DealerController::class,'BuyProduct']);
-    Route::get('ProductDetails/{id}',[DealerController::class,'ProductDetails']);
 });
 
 

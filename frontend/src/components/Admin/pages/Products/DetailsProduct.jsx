@@ -20,7 +20,7 @@ function DetailsProduct(props) {
     });
 
     useEffect(() => {
-        axios.get(`/api/ProductDetails/${props.data.uniq}`).then(res => {
+        axios.get(`/api/ProductDetailsDealer/${props.data.uniq}`).then(res => {
             if (res.data.status === 200) {
                 setDetails(res.data.data);
             }

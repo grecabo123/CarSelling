@@ -24,7 +24,7 @@ function Admin() {
                 localStorage.removeItem('auth_token');
                 localStorage.removeItem('auth_id');
                 swal('Success', res.data.message, 'success');
-                history.push('/login');
+                history.push('/');
             }
         });
     }

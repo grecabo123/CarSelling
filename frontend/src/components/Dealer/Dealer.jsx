@@ -24,7 +24,7 @@ function Dealer() {
                 localStorage.removeItem('auth_id');
                 localStorage.removeItem('auth_name');
                 swal('Success', res.data.message, 'success');
-                history.push('/login');
+                history.push('/');
             }
         });
     }
