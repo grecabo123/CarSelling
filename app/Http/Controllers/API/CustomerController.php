@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Models\Dealers;
 use App\Models\Logs;
 use App\Models\Products;
+use App\Models\ReserveData;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -70,6 +71,43 @@ class CustomerController extends Controller
         return response()->json([
             "status"            =>          200,
             "data"              =>          $product,
+        ]);
+    }
+
+    public function SubmitReserve(Request $request) {
+
+
+        $product = Products::find($request->vid);
+
+        $report = new ReserveData;
+        $report->user_fk = $request->id;
+        $report->name = $request->name;
+        $report->reserve_date = $request->data;
+        $report->annual_income = $request->income;
+        $report->description = $request->desc;
+        $report->product_id = $product->VID;
+
+        $report->save();
+
+
+        $logs = new Logs;
+
+        $logs->description = "Submit Reserv form to Dealer";
+        $logs->user_fk = $request->id;
+
+        $logs->save();
+
+        return response()->json([
+            "status"            =>          200,
+        ]);
+    }
+
+    public function AllProducts () {
+        $data = Products::all();
+
+        return response()->json([
+            "status"            =>          200,
+            "data"              =>          $data,
         ]);
     }
 }

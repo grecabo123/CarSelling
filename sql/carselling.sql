@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 05, 2024 at 04:36 AM
+-- Generation Time: Jan 05, 2024 at 08:26 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.3.5
 
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `migrations`
@@ -68,7 +68,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (6, '2023_12_29_183301_create_tbl_products_table', 3),
 (7, '2023_12_31_034728_create_tbl_logs_table', 4),
 (9, '2024_01_02_093344_create_tbl_supplier_table', 5),
-(11, '2024_01_03_195022_create_tbl_transaction_table', 7);
+(11, '2024_01_03_195022_create_tbl_transaction_table', 7),
+(12, '2024_01_04_213005_create_tbl_reserve_table', 8);
 
 -- --------------------------------------------------------
 
@@ -104,14 +105,14 @@ CREATE TABLE IF NOT EXISTS `personal_access_tokens` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
   KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `personal_access_tokens`
 --
 
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `created_at`, `updated_at`) VALUES
-(24, 'App\\Models\\User', 6, 'jaspe@gmail.com_customer', '1678b8e0d888ca9d6b0dfeeeb8c996306b27dada8f1fafdbaf6732d3440f6ca9', '[\"server:customer\"]', '2024-01-04 19:43:08', '2024-01-04 13:50:15', '2024-01-04 19:43:08');
+(25, 'App\\Models\\User', 3, 'honda@gmail.com_Dealer', '3ef8cc5767a1f5d2e114c86223e0a0b2ac28fba68d1c198a4884bdb96d4a285f', '[\"server:dealer\"]', '2024-01-05 12:26:42', '2024-01-05 12:20:44', '2024-01-05 12:26:42');
 
 -- --------------------------------------------------------
 
@@ -264,7 +265,7 @@ CREATE TABLE IF NOT EXISTS `tbl_logs` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `tbl_logs_user_fk_foreign` (`user_fk`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `tbl_logs`
@@ -276,7 +277,9 @@ INSERT INTO `tbl_logs` (`id`, `description`, `user_fk`, `created_at`, `updated_a
 (3, 'Create Product to 1G1JC6SH3D4200004', 1, '2024-01-02 01:44:56', '2024-01-02 01:44:56'),
 (4, 'CreatedNissi', 7, '2024-01-03 14:40:35', '2024-01-03 14:40:35'),
 (5, 'Create Product to 1G1JC6SH3D4200032', 1, '2024-01-04 08:13:22', '2024-01-04 08:13:22'),
-(6, 'Create Product to 1G1JC6SH3D4200003232', 1, '2024-01-04 08:24:03', '2024-01-04 08:24:03');
+(6, 'Create Product to 1G1JC6SH3D4200003232', 1, '2024-01-04 08:24:03', '2024-01-04 08:24:03'),
+(7, 'Submit Reserv form to Dealer', 6, '2024-01-05 12:09:24', '2024-01-05 12:09:24'),
+(8, 'Submit Reserv form to Dealer', 6, '2024-01-05 12:18:33', '2024-01-05 12:18:33');
 
 -- --------------------------------------------------------
 
@@ -320,6 +323,35 @@ INSERT INTO `tbl_products` (`id`, `VID`, `bodytype`, `color`, `price`, `dealer_p
 (3, '1G1JC6SH3D4200004', 'Milisa', 'Red', 3231.00, NULL, 'Uploads/Files/df40ace72a8a1936461d8c1c56a329f8.jpg', 'ex', 'ez', 'ez', 'ez', '2012', '854ba68bc784f895b6a0f7e55d6b7c83', 1, 9, 0, 0, '2024-01-02 01:44:56', '2024-01-04 07:15:38'),
 (4, '1G1JC6SH3D4200032', 'Pocari Sweat', 'White', 11000.00, NULL, 'Uploads/Files/cd9edfe3ced420719d72361693b449ac.jpg', 'Water', 'Bottle', 'Car', 'Sample', '2011', 'cd9edfe3ced420719d72361693b449ac', 1, 10, 0, 0, '2024-01-04 08:13:22', '2024-01-04 08:13:40'),
 (5, '1G1JC6SH3D4200003232', 'dwa', 'hu', 45678.00, NULL, 'Uploads/Files/314a3dc0c085cebace7d18708ac2ea2a.jpg', 'uhui', 'uhuih', 'uhuih', 'huiuh', '345', '314a3dc0c085cebace7d18708ac2ea2a', 1, 1, 0, 0, '2024-01-04 08:24:03', '2024-01-04 08:24:03');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_reserve`
+--
+
+DROP TABLE IF EXISTS `tbl_reserve`;
+CREATE TABLE IF NOT EXISTS `tbl_reserve` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_fk` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `reserve_date` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `annual_income` double NOT NULL,
+  `description` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `product_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `tbl_reserve_user_fk_foreign` (`user_fk`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `tbl_reserve`
+--
+
+INSERT INTO `tbl_reserve` (`id`, `user_fk`, `name`, `reserve_date`, `annual_income`, `description`, `product_id`, `created_at`, `updated_at`) VALUES
+(1, 6, 'Benedict Ewing', 'Jan 16 2024', 23456, 'sdfghjklvtbhnjmk,l', '1G1JC6SH3D4200002', '2024-01-05 12:09:24', '2024-01-05 12:09:24'),
+(2, 6, 'rftvbyhnj', 'Jan 31 2024', 66761, 'edrftgyhunimo,', '1G1JC6SH3D4200002', '2024-01-05 12:18:33', '2024-01-05 12:18:33');
 
 -- --------------------------------------------------------
 
@@ -446,6 +478,12 @@ ALTER TABLE `tbl_logs`
 ALTER TABLE `tbl_products`
   ADD CONSTRAINT `tbl_products_ibfk_1` FOREIGN KEY (`user_fk`) REFERENCES `tbl_supplier` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `tbl_products_ibfk_2` FOREIGN KEY (`supplier_fk`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tbl_reserve`
+--
+ALTER TABLE `tbl_reserve`
+  ADD CONSTRAINT `tbl_reserve_user_fk_foreign` FOREIGN KEY (`user_fk`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tbl_supplier`

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\Logs;
+use App\Models\ReserveData;
 use App\Models\User;
 use App\Models\Dealers;
 use App\Models\Products;
@@ -124,6 +125,16 @@ class DealerController extends Controller
         return response()->json([
             "status"            =>          200,
             "data"              =>          $product,
+        ]);
+    }
+
+    public function ReportData($id) {
+
+        $data = ReserveData::all();
+
+        return response()->json([
+            "status"            =>          200,
+            "data"              =>          $data,
         ]);
     }
 }

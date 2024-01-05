@@ -29,6 +29,12 @@ Route::get('Manufacture',[DealerController::class,'Manufacture']);
 // Dealer
 Route::get('DealerData', [DealerController::class, 'DealerData']);
 
+// ReportData
+
+Route::get('ReportData/{id}',[DealerController::class,  'ReportData']);
+
+Route::get('AllProducts',[CustomerController::class, 'AllProducts']);
+
 // Transaction
 Route::get('Transaction/{id}',[TransactionController::class, 'TransactionData']);
 Route::get('TransactionSeller/{id}',[TransactionController::class, 'TransactionDataSeller']);
@@ -62,7 +68,7 @@ Route::middleware(['auth:sanctum', 'isCustomer'])->group(function () {
     Route::get('ProductDetails/{id}',[CustomerController::class,'ProductDetails']);
     Route::put('BuyProduct',[CustomerController::class,'BuyProduct']);
     Route::get('DealerProduct',[CustomerController::class, 'Product']);
-
+    Route::post('SubmitReserve',[CustomerController::class, 'SubmitReserve']);
     
     
 });
