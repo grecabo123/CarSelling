@@ -58,7 +58,11 @@ function Dealer() {
 
                     <li class="nav-item"><Link class="nav-link" to="/dealer/sell">
                         <FcFolder className='nav-icon' /> View Sells</Link></li>
-                        <li class="nav-item"><Link class="nav-link" to="/dealer/sell">
+
+                        <li class="nav-item"><Link class="nav-link" to="/dealer/product">
+                        <FcFolder className='nav-icon' /> My Product</Link></li>
+
+                        <li class="nav-item"><Link class="nav-link" to="/dealer/reserve">
                         <FcFolder className='nav-icon' /> Reserve List</Link></li>
                     <div class="collapse" id='price'>
                         <li class="nav-item"><Link class="nav-link" to="/dealer/AddProduct"> <span className='nav-icon'></span>Add Product</Link></li>

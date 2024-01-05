@@ -11,7 +11,7 @@ import { Badge } from 'primereact/badge'
 function SellProducts() {
 
     const [Product, setProduct] = useState([]);
-    const [loading, setloading] = useState(true);
+    const [loading, setloading] = useState(true);``
     const [visibleModal, setVisibleModal] = useState(false);
     const [ProductDetails, setProductDetails] = useState({
         uniq: "",

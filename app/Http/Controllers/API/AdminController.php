@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\Logs;
+use App\Models\Supplier;
 use App\Models\User;
 use App\Models\Products;
 use Illuminate\Http\Request;
@@ -115,6 +116,9 @@ class AdminController extends Controller
         }
         else{
 
+            $supplier = Supplier::where('user_fk',$request->user_id)->first();
+            
+
             $products = new Products;
 
             $products->VID = $request->vid;
@@ -128,6 +132,7 @@ class AdminController extends Controller
             $products->engine = $request->engine;
             $products->model_year = $request->year;
             $products->user_fk = $request->auth_id;
+            $products->supplier_fk = $request->auth_id;
 
             if($request->hasFile('files')){
                 $file = $request->file('files');

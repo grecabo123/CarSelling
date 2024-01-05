@@ -64,7 +64,7 @@ function DetailsProduct(props) {
             amount: amountbuy.money,
             uniq: props.data,   
         }
-        axios.put(`/api/BuyProduct`,data).then(res => {
+        axios.put(`/api/BuyProductDealer`,data).then(res => {
             if(res.data.status === 200) {
 
                 setTimeout(() => {

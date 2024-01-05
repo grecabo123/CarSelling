@@ -16,5 +16,6 @@ class Dealers extends Model
         "user_fk",
         "products_fk",
         "price_sold",
+        "dealer_price"
     ];
 }

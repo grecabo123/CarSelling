@@ -56,7 +56,7 @@ function Customer() {
 
                     <li class="nav-item"><Link class="nav-link" to="/customer/sell">
                         <FcFolder className='nav-icon' /> View Sells</Link></li>
-                        <li class="nav-item"><Link class="nav-link" to="/customer/sell">
+                        <li class="nav-item"><Link class="nav-link" to="/customer/form">
                         <FcOpenedFolder className='nav-icon' /> Reserve Form</Link></li>
                     <div class="collapse" id='price'>
                         <li class="nav-item"><Link class="nav-link" to="/customer/AddProduct"> <span className='nav-icon'></span>Add Product</Link></li>

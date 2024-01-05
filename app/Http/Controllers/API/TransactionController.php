@@ -14,6 +14,7 @@ class TransactionController extends Controller
         $data = Transaction::join('users as u1','u1.id','=','tbl_transaction.seller_fk')
         ->join('tbl_products','tbl_products.id','=','tbl_transaction.products_fk')
             ->join('users as u2','u2.id','=','tbl_transaction.buyer_fk')
+                // ->join('tbl_dealers_product','tbl_dealers_product.products_fk','=','tbl_products.id')
                 ->join('tbl_supplier','tbl_supplier.user_fk','=','tbl_transaction.seller_fk')
                 ->where('tbl_transaction.seller_fk',$id)
                     ->get();
@@ -30,6 +31,7 @@ class TransactionController extends Controller
         $data = Transaction::join('users as u1','u1.id','=','tbl_transaction.seller_fk')
             ->join('tbl_products','tbl_products.id','=','tbl_transaction.products_fk')
                 ->join('users as u2','u2.id','=','tbl_transaction.buyer_fk')
+                
                     ->join('tbl_supplier','tbl_supplier.user_fk','=','tbl_transaction.seller_fk')
                     ->where('tbl_transaction.buyer_fk',$id)
                         ->get();

@@ -2,14 +2,14 @@ import axios from 'axios';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { Image } from 'primereact/image';
+import { InputNumber } from 'primereact/inputnumber';
 import { InputText } from 'primereact/inputtext';
 import { Skeleton } from 'primereact/skeleton';
 import React, { useEffect, useState } from 'react'
 import swal from 'sweetalert';
 
-function DetailsProduct(props) {
+function Resell(props) {
 
-    // console.log(props.data.status == 1 ? 1 : 2);
 
     const [Details, setDetails] = useState([]);
     const [loading, setloading] = useState(true);
@@ -19,12 +19,13 @@ function DetailsProduct(props) {
         money: "",
     });
     const [DealerPrice, setDealer] = useState([])
+    const [AmountSell, setAmount] = useState();
 
     useEffect(() => {
-        axios.get(`/api/ProductDetails/${props.data.uniq}`).then(res => {
+        axios.get(`/api/ProductDetailsDealer/${props.data.uniq}`).then(res => {
             if (res.data.status === 200) {
                 setDetails(res.data.data);
-                setDealer(res.data.dealer_price);
+                setDealer(res.data.details);
             }
             setloading(false);
         }).catch((error) => {
@@ -48,7 +49,7 @@ function DetailsProduct(props) {
     }
 
     const Amount = (e) => {
-        if(e.target.value > DealerPrice.dealer_price) {
+        if(e.target.value > Details.price) {
             setbtn(false)
             // setbuy({
             //     money: e.target.value
@@ -64,12 +65,12 @@ function DetailsProduct(props) {
 
         const data = {
             id: localStorage.getItem('auth_id'),
-            amount: amountbuy.money,
-            uniq: props.data,   
+            amount: AmountSell,
+            uniq: props.data.uniq,   
         }
-        axios.put(`/api/BuyProduct`,data).then(res => {
-            if(res.data.status === 200) {
 
+        axios.put(`/api/SellProducts`,data).then(res => {
+            if(res.data.status === 200) {
                 setTimeout(() => {
                     window.location.reload();
                 },1500)
@@ -90,7 +91,8 @@ function DetailsProduct(props) {
                 loading ? <Skeleton className='p-skeleton' width='100%' />
                     :
                     <div className="container-fluid">
-                        <div className="row">
+                       <form onSubmit={BuyProductModal}>
+                       <div className="row">
                             <ul className="list-group">
                                 <li className="list-group-item bg-transparent border-0 d-flex justify-content-between align-items-center">
                                     <span className='text-light'>Supplier Name:</span>
@@ -121,8 +123,22 @@ function DetailsProduct(props) {
                                     <span className='text-light'>{Details.model_year}</span>
                                 </li>
                                 <li className="list-group-item bg-transparent border-0 d-flex justify-content-between align-items-center">
-                                    <span className='text-light'>Price</span>
-                                    <span className='text-light'>₱{DealerPrice.dealer_price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+                                    <span className='text-light'>Manufacture Price</span>
+                                    <span className='text-light'>₱{Details.price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+                                </li>
+                                <li className="list-group-item bg-transparent border-0 d-flex justify-content-between align-items-center">
+                                    <span className='text-light'>Dealer Price</span>
+                                    <span className='text-light'>₱{Details.dealer_price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+                                </li>
+                                <li className="list-group-item bg-transparent border-0 d-flex justify-content-between align-items-center">
+                                    <span className='text-light'>Customer Price</span>
+                                    {
+                                        DealerPrice.dealer_price === 0.00 ? 
+                                        <InputText className='p-inputtext-sm' name='customer_price' keyfilter={'int'} value={AmountSell} onChange={(e) => setAmount(e.target.value)} />
+                                        :
+                                    <span className='text-light'>₱{ DealerPrice.dealer_price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+                                    }
+                                    {/* <span className='text-light'>₱{Details.dealer_price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span> */}
                                 </li>
                                 <li className="list-group-item bg-transparent border-0 d-flex justify-content-between align-items-center">
                                     <span className='text-light'>Image</span>
@@ -130,12 +146,12 @@ function DetailsProduct(props) {
                                 <Image src={`http://127.0.0.1:8000/${Details.image}`} preview width='100%' height='300' />
                             </ul>
                             <div className="mt-3 d-flex justify-content-end">
-                                {
-                                    props.data.status == 1 ? "" :
-                                <Button onClick={BuyProduct} className='p-button-sm p-button-info' data-id={props.data} label='Buy Product' />
-                                }
+                                   
+                                <Button  className='p-button-sm p-button-info' data-id={props.data} label='Sell Product' />
+                                
                             </div>
                         </div>
+                       </form>
 
                         <Dialog header="Price" visible={visible} onHide={onHide} position='top' draggable={false} breakpoints={{ '960px': '75vw', '640px': '100vw' }} style={{ width: '50vw' }} >
                             <form onSubmit={BuyProductModal}>
@@ -145,7 +161,7 @@ function DetailsProduct(props) {
                                             <label htmlFor="" className="form-label">
                                                Current Price
                                             </label>
-                                            <InputText readOnly value={DealerPrice.dealer_price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} keyfilter={'money'} name='money' className='w-100' />
+                                            <InputText readOnly value={Details.price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} keyfilter={'money'} name='money' className='w-100' />
                                         </div>
                                         <div className="col-lg-12 mb-2">
                                             <label htmlFor="" className="form-label">
@@ -167,4 +183,4 @@ function DetailsProduct(props) {
     )
 }
 
-export default DetailsProduct
+export default Resell

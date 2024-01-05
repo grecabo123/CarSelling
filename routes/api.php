@@ -44,7 +44,9 @@ Route::middleware(['auth:sanctum', 'isDealer'])->group(function () {
     });
     
     Route::get('ProductDetailsDealer/{id}',[DealerController::class,'ProductDetails']);
-    Route::put('BuyProduct',[DealerController::class,'BuyProduct']);
+    Route::put('BuyProductDealer',[DealerController::class,'BuyProduct']);
+    Route::get('MyProduct',[DealerController::class, 'MyProduct']);
+    Route::put('SellProducts',[DealerController::class, 'SellProducts']);
 });
 
 
@@ -59,6 +61,9 @@ Route::middleware(['auth:sanctum', 'isCustomer'])->group(function () {
 
     Route::get('ProductDetails/{id}',[CustomerController::class,'ProductDetails']);
     Route::put('BuyProduct',[CustomerController::class,'BuyProduct']);
+    Route::get('DealerProduct',[CustomerController::class, 'Product']);
+
+    
     
 });
 

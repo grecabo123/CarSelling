@@ -34,7 +34,7 @@ function Transaction() {
     const dealer_format = (transactiondata) => {
         return (
             <>
-                <span>₱{transactiondata.dealer_price.toFixed(2)}</span>
+                <span>₱{transactiondata.current_price.toFixed(2)}</span>
             </>
         )
     }
@@ -54,7 +54,7 @@ function Transaction() {
                 <Column field='supplier_name' header="Supplier"></Column>
                 <Column field='supplier_name' header="Dealer"></Column>
                 <Column field='VID' header="VID #"></Column>
-                <Column field='dealer_price' body={dealer_format} header="Dealer Price"></Column>
+                <Column field='current_price' body={dealer_format} header="Dealer Price"></Column>
                 <Column field='sold_price' body={customer_format} header="Customer Price"></Column>
             </DataTable>
             </Card>

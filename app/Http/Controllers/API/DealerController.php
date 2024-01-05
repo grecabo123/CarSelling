@@ -19,14 +19,52 @@ class DealerController extends Controller
         
     }
 
+    public function SellProducts(Request $request){
+        $product = Products::where('unique_key',$request->uniq)->first();
+
+        $dealer = Dealers::where('products_fk',$product->id)->first();
+
+        if($dealer){
+            $dealer->dealer_price = $request->amount;
+
+            $dealer->update();
+
+            return response()->json([
+                "status"                =>              200,
+
+            ]);
+        }
+    }
+
+    public function MyProduct () {
+        $product = Products::join('tbl_supplier','tbl_supplier.user_fk','=','tbl_products.user_fk')
+            ->join('users','users.id','=','tbl_products.supplier_fk')
+                ->where('tbl_products.is_dealer_sold', 1)
+                    ->get();
+
+        
+
+        return response()->json([
+            "status"            =>          200,
+            "data"              =>          $product,
+        ]);
+    }
+
     public function ProductDetails ($id) {
         $data = Products::join('tbl_supplier','tbl_supplier.user_fk','=','tbl_products.user_fk')
             ->where('tbl_products.unique_key',$id)
                 ->first();
+        
+        $details = Products::where('unique_key',$id)->first();
+    
+        $dealer = Dealers::where('products_fk',$details->id)->first();
+
+
 
         return response()->json([
             "status"            =>          200,
             "data"              =>          $data,
+            "details"           =>          $dealer,
         ]);
     }
 
@@ -80,6 +118,7 @@ class DealerController extends Controller
     public function Product(){
         $product = Products::join('tbl_supplier','tbl_supplier.user_fk','=','tbl_products.user_fk')
             ->join('users','users.id','=','tbl_products.supplier_fk')
+                ->where('tbl_products.is_dealer_sold',0)
                 ->get();
 
         return response()->json([
