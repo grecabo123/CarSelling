@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 04, 2024 at 12:39 AM
+-- Generation Time: Jan 05, 2024 at 04:36 AM
 -- Server version: 5.7.26
 -- PHP Version: 7.3.5
 
@@ -104,21 +104,14 @@ CREATE TABLE IF NOT EXISTS `personal_access_tokens` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
   KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `personal_access_tokens`
 --
 
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `created_at`, `updated_at`) VALUES
-(1, 'App\\Models\\User', 1, 'masteradmin@gmail.com_Admin', '9056265da44cc03e31a729ddaa8f47ca7186af7ae43cd0238aa789785ea4817f', '[\"server:admin\"]', NULL, '2023-12-29 05:00:31', '2023-12-29 05:00:31'),
-(2, 'App\\Models\\User', 1, 'masteradmin@gmail.com_Admin', '2150f88f2ddaa1c7c6dba6ef9b6a3b1041e9cde7e74b90cffed351b18103c703', '[\"server:admin\"]', '2024-01-01 13:25:08', '2023-12-29 10:03:57', '2024-01-01 13:25:08'),
-(3, 'App\\Models\\User', 3, 'honda@gmail.com_Dealer', 'd5c950001635d924a564940422e8a7fb96dadbce5b0cf9834b3c5e91a2c71137', '[\"server:dealer\"]', '2024-01-02 00:45:16', '2024-01-01 09:46:14', '2024-01-02 00:45:16'),
-(4, 'App\\Models\\User', 1, 'masteradmin@gmail.com_Admin', '08098f60546bbaf3220c1bc2c4c026e5b46a84e8a8fc7907990f3aa2fa50c83b', '[\"server:admin\"]', '2024-01-02 12:17:46', '2024-01-02 01:12:37', '2024-01-02 12:17:46'),
-(5, 'App\\Models\\User', 3, 'honda@gmail.com_Dealer', '4a832aac16155933d279aed7ea4f1b915e5c7bcca7260539b615d0e671b07688', '[\"server:dealer\"]', '2024-01-02 12:35:11', '2024-01-02 01:12:57', '2024-01-02 12:35:11'),
-(6, 'App\\Models\\User', 1, 'masteradmin@gmail.com_Admin', '0c2e8be9b68d4a7970d9503d062d03ab7e87b363307dc7a41f3d7460c02306d0', '[\"server:admin\"]', '2024-01-03 13:26:57', '2024-01-03 00:42:05', '2024-01-03 13:26:57'),
-(7, 'App\\Models\\User', 3, 'honda@gmail.com_Dealer', 'abd104dd09b9133e6b20a71dee03dc20ccb2dc713c366c4c62661a52a381a8e1', '[\"server:dealer\"]', '2024-01-03 12:36:31', '2024-01-03 04:13:10', '2024-01-03 12:36:31'),
-(9, 'App\\Models\\User', 7, 'superadmin@gmail.com_SuperAdmin', 'd87d45ea4768819d3fc2d388dc9f9114c0a21251b1d9187408b5705938cac03c', '[\"server:super\"]', '2024-01-03 14:40:44', '2024-01-03 13:28:03', '2024-01-03 14:40:44');
+(24, 'App\\Models\\User', 6, 'jaspe@gmail.com_customer', '1678b8e0d888ca9d6b0dfeeeb8c996306b27dada8f1fafdbaf6732d3440f6ca9', '[\"server:customer\"]', '2024-01-04 19:43:08', '2024-01-04 13:50:15', '2024-01-04 19:43:08');
 
 -- --------------------------------------------------------
 
@@ -240,19 +233,21 @@ CREATE TABLE IF NOT EXISTS `tbl_dealers_product` (
   `user_fk` bigint(20) UNSIGNED NOT NULL,
   `products_fk` bigint(20) UNSIGNED NOT NULL,
   `price_sold` double(10,2) NOT NULL,
+  `dealer_price` double(10,2) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `tbl_dealers_product_user_fk_foreign` (`user_fk`),
   KEY `tbl_dealers_product_products_fk_foreign` (`products_fk`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `tbl_dealers_product`
 --
 
-INSERT INTO `tbl_dealers_product` (`id`, `user_fk`, `products_fk`, `price_sold`, `created_at`, `updated_at`) VALUES
-(2, 3, 1, 12443.00, '2024-01-03 11:58:15', '2024-01-03 11:58:15');
+INSERT INTO `tbl_dealers_product` (`id`, `user_fk`, `products_fk`, `price_sold`, `dealer_price`, `created_at`, `updated_at`) VALUES
+(2, 3, 1, 12443.00, 15000.00, '2024-01-03 11:58:15', '2024-01-04 13:15:39'),
+(3, 3, 2, 24351.00, 0.00, '2024-01-04 08:31:16', '2024-01-04 08:31:16');
 
 -- --------------------------------------------------------
 
@@ -269,7 +264,7 @@ CREATE TABLE IF NOT EXISTS `tbl_logs` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `tbl_logs_user_fk_foreign` (`user_fk`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `tbl_logs`
@@ -279,7 +274,9 @@ INSERT INTO `tbl_logs` (`id`, `description`, `user_fk`, `created_at`, `updated_a
 (1, 'Create Product to', 1, '2024-01-01 08:53:17', '2024-01-01 08:53:17'),
 (2, 'Create Product to', 1, '2024-01-02 01:21:17', '2024-01-02 01:21:17'),
 (3, 'Create Product to 1G1JC6SH3D4200004', 1, '2024-01-02 01:44:56', '2024-01-02 01:44:56'),
-(4, 'CreatedNissi', 7, '2024-01-03 14:40:35', '2024-01-03 14:40:35');
+(4, 'CreatedNissi', 7, '2024-01-03 14:40:35', '2024-01-03 14:40:35'),
+(5, 'Create Product to 1G1JC6SH3D4200032', 1, '2024-01-04 08:13:22', '2024-01-04 08:13:22'),
+(6, 'Create Product to 1G1JC6SH3D4200003232', 1, '2024-01-04 08:24:03', '2024-01-04 08:24:03');
 
 -- --------------------------------------------------------
 
@@ -311,16 +308,18 @@ CREATE TABLE IF NOT EXISTS `tbl_products` (
   PRIMARY KEY (`id`),
   KEY `user_fk` (`user_fk`),
   KEY `supplier_fk` (`supplier_fk`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `tbl_products`
 --
 
 INSERT INTO `tbl_products` (`id`, `VID`, `bodytype`, `color`, `price`, `dealer_price`, `image`, `brand`, `model`, `transmission`, `engine`, `model_year`, `unique_key`, `user_fk`, `supplier_fk`, `is_dealer_sold`, `is_customer_sold`, `created_at`, `updated_at`) VALUES
-(1, '19123CAWFWA#21faf', 'Body', 'Sample', 12442.00, 12443.00, 'Uploads/Files/d147e9d3e4e509d364afae9095e7524f.png', 'Sample', 'Sampe', 'Sample', 'sample', '2012', 'd147e9d3e4e509d364afae9095e7524f', 1, 3, 1, 1, '2024-01-01 08:53:17', '2024-01-03 13:11:08'),
-(2, '1G1JC6SH3D4200002', 'Sample', 'Sample', 24350.00, NULL, 'Uploads/Files/997b8f4c5a198b741c42ec48a407de37.jpg', 'Sample', 'Sample', 'Sample', 'Sample', '2023', '997b8f4c5a198b741c42ec48a407de37', 1, NULL, 0, 0, '2024-01-02 01:21:17', '2024-01-02 01:21:17'),
-(3, '1G1JC6SH3D4200004', 'Ez', 'ez', 32311.00, NULL, 'Uploads/Files/854ba68bc784f895b6a0f7e55d6b7c83.png', 'ex', 'ez', 'ez', 'ez', '2012', '854ba68bc784f895b6a0f7e55d6b7c83', 1, NULL, 0, 0, '2024-01-02 01:44:56', '2024-01-02 01:44:56');
+(1, '19123CAWFWA#21faf', 'Body', 'Sample', 12442.00, 12443.00, 'Uploads/Files/d147e9d3e4e509d364afae9095e7524f.png', 'Sample', 'Sampe', 'Sample', 'sample', '2012', 'd147e9d3e4e509d364afae9095e7524f', 1, 3, 1, 1, '2024-01-01 08:53:17', '2024-01-04 14:23:02'),
+(2, '1G1JC6SH3D4200002', 'Sample', 'Sample', 24350.00, 24351.00, 'Uploads/Files/997b8f4c5a198b741c42ec48a407de37.jpg', 'Sample', 'Sample', 'Sample', 'Sample', '2023', '997b8f4c5a198b741c42ec48a407de37', 1, 3, 1, 0, '2024-01-02 01:21:17', '2024-01-04 08:31:16'),
+(3, '1G1JC6SH3D4200004', 'Milisa', 'Red', 3231.00, NULL, 'Uploads/Files/df40ace72a8a1936461d8c1c56a329f8.jpg', 'ex', 'ez', 'ez', 'ez', '2012', '854ba68bc784f895b6a0f7e55d6b7c83', 1, 9, 0, 0, '2024-01-02 01:44:56', '2024-01-04 07:15:38'),
+(4, '1G1JC6SH3D4200032', 'Pocari Sweat', 'White', 11000.00, NULL, 'Uploads/Files/cd9edfe3ced420719d72361693b449ac.jpg', 'Water', 'Bottle', 'Car', 'Sample', '2011', 'cd9edfe3ced420719d72361693b449ac', 1, 10, 0, 0, '2024-01-04 08:13:22', '2024-01-04 08:13:40'),
+(5, '1G1JC6SH3D4200003232', 'dwa', 'hu', 45678.00, NULL, 'Uploads/Files/314a3dc0c085cebace7d18708ac2ea2a.jpg', 'uhui', 'uhuih', 'uhuih', 'huiuh', '345', '314a3dc0c085cebace7d18708ac2ea2a', 1, 1, 0, 0, '2024-01-04 08:24:03', '2024-01-04 08:24:03');
 
 -- --------------------------------------------------------
 
@@ -370,7 +369,7 @@ CREATE TABLE IF NOT EXISTS `tbl_transaction` (
   KEY `tbl_transaction_seller_fk_foreign` (`seller_fk`),
   KEY `tbl_transaction_buyer_fk_foreign` (`buyer_fk`),
   KEY `tbl_transaction_products_fk_foreign` (`products_fk`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `tbl_transaction`
@@ -378,7 +377,9 @@ CREATE TABLE IF NOT EXISTS `tbl_transaction` (
 
 INSERT INTO `tbl_transaction` (`id`, `seller_fk`, `buyer_fk`, `products_fk`, `current_price`, `sold_price`, `created_at`, `updated_at`) VALUES
 (1, 1, 3, 1, 12442.00, 12443.00, '2024-01-03 11:58:15', '2024-01-03 11:58:15'),
-(2, 1, 6, 1, 12442.00, 12444.00, '2024-01-03 13:11:08', '2024-01-03 13:11:08');
+(2, 1, 6, 1, 12442.00, 12444.00, '2024-01-03 13:11:08', '2024-01-03 13:11:08'),
+(3, 1, 3, 2, 24350.00, 24351.00, '2024-01-04 08:31:16', '2024-01-04 08:31:16'),
+(5, 1, 6, 1, 15000.00, 20000.00, '2024-01-04 14:23:02', '2024-01-04 14:23:02');
 
 -- --------------------------------------------------------
 
@@ -404,7 +405,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`),
   KEY `brgy_fk` (`brgy_fk`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
@@ -419,7 +420,8 @@ INSERT INTO `users` (`id`, `name`, `role`, `status`, `email`, `contact`, `email_
 (8, 'Suzuki', 1, 1, 'suzuki@gmail.com', 9213123, NULL, '$2y$10$ED5Vh4dnVHulJ7.lnrW8Fe9U.8JNY2PkrKCu3WO.zvcslRYr9e7vO', 'Suzuki', 74, NULL, '2024-01-03 14:10:57', '2024-01-03 14:10:57'),
 (9, 'Toyota', 1, 1, 'toyota@gmail.com', 921312312, NULL, '$2y$10$jghdrzCECjoBELAjI04lC.bTYiWNpyd1dZnqhtfrFYvBEsbunix46', 'Toyota', 6, NULL, '2024-01-03 14:24:32', '2024-01-03 14:24:32'),
 (10, 'Sniper', 1, 1, 'sniper@gmail.com', 93213213125, NULL, '$2y$10$7gNnKW05PxahVnv.iuPE1OdpNJxErxBeBZw5ZmSyuHOUQkOP2JAY.', 'Sniper', 81, NULL, '2024-01-03 14:27:43', '2024-01-03 14:27:43'),
-(11, 'Nissi', 1, 1, 'nissi@gmail.com', 9123123424, NULL, '$2y$10$vyWmftbLBM8EI4Mwtyx0rOE/zZCAXW3W5t14xGxpKTKrJl2N18pgO', 'Nissi', 49, NULL, '2024-01-03 14:40:34', '2024-01-03 14:40:34');
+(11, 'Nissi', 1, 1, 'nissi@gmail.com', 9123123424, NULL, '$2y$10$vyWmftbLBM8EI4Mwtyx0rOE/zZCAXW3W5t14xGxpKTKrJl2N18pgO', 'Nissi', 49, NULL, '2024-01-03 14:40:34', '2024-01-03 14:40:34'),
+(12, 'Georgie dwa', 3, 1, 'adwa2@gmail.com', NULL, NULL, '$2y$10$5GcItJVGkKD7sQKbZvdgvOz7eUFs06qTpYZsuCpIAEPrl3gLdaXre', 'hackfb123', NULL, NULL, '2024-01-04 07:12:50', '2024-01-04 07:12:50');
 
 --
 -- Constraints for dumped tables
