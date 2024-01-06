@@ -80,7 +80,7 @@ class DealerController extends Controller
         ]);
     }
 
-    public function BuyProduct(Request $request){
+    public function BuyProductDealer(Request $request){
 
         $data = Products::where('unique_key',$request->uniq)->first();
 
@@ -95,6 +95,7 @@ class DealerController extends Controller
             $dealer_product->user_fk = $request->id;
             $dealer_product->products_fk = $data->id;
             $dealer_product->price_sold = $request->amount;
+            $dealer_product->dealer_price = $request->amount;
             $dealer_product->save();
 
             $transaction = new Transaction;
@@ -106,7 +107,6 @@ class DealerController extends Controller
             $transaction->save();
 
             $logs = new Logs;
-
             $logs->description = "Bought a Product"." ".$data->VID;
             $logs->user_fk = $request->id;
 

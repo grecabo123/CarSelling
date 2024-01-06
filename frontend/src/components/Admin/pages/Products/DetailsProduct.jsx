@@ -62,8 +62,9 @@ function DetailsProduct(props) {
         const data = {
             id: localStorage.getItem('auth_id'),
             amount: amountbuy.money,
-            uniq: props.data,   
+            uniq: props.data.uniq,   
         }
+
         axios.put(`/api/BuyProductDealer`,data).then(res => {
             if(res.data.status === 200) {
 

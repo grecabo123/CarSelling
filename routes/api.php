@@ -50,7 +50,7 @@ Route::middleware(['auth:sanctum', 'isDealer'])->group(function () {
     });
     
     Route::get('ProductDetailsDealer/{id}',[DealerController::class,'ProductDetails']);
-    Route::put('BuyProductDealer',[DealerController::class,'BuyProduct']);
+    Route::put('BuyProductDealer',[DealerController::class,'BuyProductDealer']);
     Route::get('MyProduct',[DealerController::class, 'MyProduct']);
     Route::put('SellProducts',[DealerController::class, 'SellProducts']);
 });
