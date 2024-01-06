@@ -116,7 +116,7 @@ class AdminController extends Controller
         }
         else{
 
-            $supplier = Supplier::where('user_fk',$request->user_id)->first();
+            $supplier = Supplier::where('user_fk',$request->auth_id)->first();
             
 
             $products = new Products;
@@ -132,8 +132,9 @@ class AdminController extends Controller
             $products->engine = $request->engine;
             $products->model_year = $request->year;
             $products->user_fk = $request->auth_id;
-            $products->supplier_fk = $request->auth_id;
-
+            $products->supplier_fk = $supplier->user_fk;
+         
+            
             if($request->hasFile('files')){
                 $file = $request->file('files');
                 $extension = $file->getClientOriginalExtension();
