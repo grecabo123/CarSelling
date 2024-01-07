@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Badge } from 'primereact/badge';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { Image } from 'primereact/image';
@@ -147,7 +148,11 @@ function Resell(props) {
                             </ul>
                             <div className="mt-3 d-flex justify-content-end">
                                    
-                                <Button  className='p-button-sm p-button-info' data-id={props.data} label='Sell Product' />
+                                   {
+                                     DealerPrice.dealer_price === 0.00 ? 
+                                     <Button  className='p-button-sm p-button-info' data-id={props.data} label='Sell Product' />
+                                     : <Badge className='p-badge' value={'Posted To Customer'} />
+                                   }
                                 
                             </div>
                         </div>

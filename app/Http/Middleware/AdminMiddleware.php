@@ -22,7 +22,6 @@ class AdminMiddleware
         if(Auth::check()){
             if(auth()->user()->tokenCan('server:admin')){
                 return $next($request);
-
             }
             else{
                 return response()->json([

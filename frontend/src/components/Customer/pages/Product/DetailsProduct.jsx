@@ -9,6 +9,8 @@ import swal from 'sweetalert';
 
 function DetailsProduct(props) {
 
+    
+
     // console.log(props.data.status == 1 ? 1 : 2);
 
     const [Details, setDetails] = useState([]);
@@ -18,6 +20,15 @@ function DetailsProduct(props) {
     const [amountbuy, setbuy] = useState({
         money: "",
     });
+
+    const [survey, setsurvery] = useState({
+        id: "",
+        title: "",
+    });
+
+    const [data, setdata] = useState([])
+    
+    
     const [DealerPrice, setDealer] = useState([])
 
     useEffect(() => {

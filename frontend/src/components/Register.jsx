@@ -7,6 +7,7 @@ import swal from 'sweetalert'
 
 function Register() {
 
+
     const [CreateAccount , setAccount] = useState({
         first: "",
         last: "",
@@ -14,6 +15,7 @@ function Register() {
         password: "",
         error: [],
     });
+
 
     const toast = useRef();
 
